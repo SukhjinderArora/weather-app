@@ -1,0 +1,86 @@
+.error-message {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  background: rgba(255, 0, 0, 0.88);
+  color: rgba(255, 255, 255, 0.81);
+}
+
+.current-weather {
+  width: 25rem;
+  margin: 0 auto;
+  margin-top: 5rem;
+  box-shadow: 0 2px 2px 2px rgba(0,0,0,.2);
+  box-sizing: content-box;
+  padding: 2rem 3rem;
+  text-align: center;
+  border-radius: 5px;
+  transition: all .3s;
+  animation: weather 1s ease-in;
+
+  &:hover {
+    transform: scale(1.03);
+    cursor: pointer;
+  }
+}
+
+.city-name {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: rgb(114, 105, 255);
+}
+
+.date-time {
+  font-size: 2rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.weather-description {
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: #7269ff;
+  margin-top: 1rem;
+}
+
+.weather-icon {
+  width: 10rem;
+  margin-top: -1.5rem;
+}
+
+.current-temp {
+  font-size: 3rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.85);
+  margin-top: -1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.temp-in-c,
+.temp-in-f {
+  display: none;
+}
+
+.selected {
+  display: inline;
+}
+
+.temp-unit, sup {
+  font-size: 1.8rem;
+}
+
+.temp-unit {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  color: #7269ff;
+}
+
+.active-unit {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.extra-weather-details p {
+  margin-bottom: 1rem;
+}

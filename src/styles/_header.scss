@@ -1,0 +1,15 @@
+.heading {
+  color: #7269ff;
+  text-align: center;
+  padding-top: 5rem;
+
+  &-primary {
+    font-size: 6.3rem;
+    font-weight: 700;
+  }
+
+  &-secondary {
+    font-size: 2.3rem;
+    font-weight: 400;
+  }
+}

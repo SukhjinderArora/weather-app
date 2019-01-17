@@ -1,0 +1,7 @@
+@mixin respond($media) {
+  @if $media == tablet {
+    @media screen and (max-width: 48rem) {
+      @content;
+    }
+  }
+}

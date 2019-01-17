@@ -1,9 +1,11 @@
 .form {
   display: flex;
   position: relative;
-  width: 55rem;
+  max-width: 55rem;
   margin: 0 auto;
   margin-top: 3rem;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 .input-city {
@@ -28,8 +30,8 @@
 }
 
 .btn-search {
-  position: relative;
-  left: -30px;
+  position: absolute;
+  right: 2rem;
   border-radius: 3px;
   background: transparent;
   border: 0;

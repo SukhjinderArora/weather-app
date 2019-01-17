@@ -27,7 +27,7 @@ const getWeatherByGeoLocation = (event) => {
           });
       })
       .catch((error) => {
-        console.log(error.message);
+        weatherView.showError(error.message);
       });
   } else {
     console.log('Geolocation not available');

@@ -6,10 +6,16 @@
   &-primary {
     font-size: 6.3rem;
     font-weight: 700;
+    @include respond(tablet) {
+      font-size: 4.3rem;
+    }
   }
 
   &-secondary {
     font-size: 2.3rem;
     font-weight: 400;
+    @include respond(tablet) {
+      font-size: 1.6rem;
+    }
   }
 }

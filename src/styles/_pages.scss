@@ -3,4 +3,9 @@
   background-size: 40%;
   width: 100%;
   min-height: 100vh;
+
+  @include respond(tablet) {
+    background-size: 100%;
+    background-position-y: 32%; 
+  }
 }

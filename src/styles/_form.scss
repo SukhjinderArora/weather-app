@@ -16,12 +16,12 @@
   border: 0;
   border-radius: 3px;
   flex: 1; 
-  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 2px 2px rgba($color-black, 0.1);
   transition: box-shadow .2s;
 
   &:focus {
     outline: 0;
-    box-shadow: 0 2px 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px 4px rgba($color-black, 0.1);
   }
 }
 
@@ -45,5 +45,5 @@
 }
 
 .btn-search:hover .search-svg {
-  fill: #6c63ff;
+  fill: $color-primary;
 }

@@ -1,8 +1,9 @@
 @import 'base';
-@import 'responsive.scss';
+@import 'variables';
+@import 'responsive';
 @import 'pages';
 @import 'header';
 @import 'form';
 @import 'animations';
-@import 'weather.scss';
+@import 'weather';
 @import 'loader';

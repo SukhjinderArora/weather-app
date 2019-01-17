@@ -37,6 +37,7 @@ const getWeatherByGeoLocation = (event) => {
 // Gets weather by city name
 const weatherFormHandler = (event) => {
   const city = weatherView.getInput();
+  if (city.trim() === '') return;
   const url = `${baseURL}/weather?q=${city}&APPID=${process.env.WEATHER_TOKEN}`;
   event.preventDefault();
   weatherView.renderLoader();

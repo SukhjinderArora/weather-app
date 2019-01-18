@@ -124,6 +124,8 @@ const getDateTime = (dt) => {
   return date.replace('day', 'day,');
 };
 
+const getDate = dt => new Date(dt).toLocaleDateString('en-us', { weekday: 'long' });
+
 // Updates the current weather view
 export const updateCurrentWeatherView = (weatherData) => {
   const markup = `
@@ -139,6 +141,32 @@ export const updateCurrentWeatherView = (weatherData) => {
       </div>
     </div>`;
   elements.weatherContainer.insertAdjacentHTML('afterbegin', markup);
+};
+
+export const updateWeatherForecastView = (weatherForecast) => {
+  const forecast = weatherForecast.list.map((weather) => {
+    return `
+      <div class="weather">
+        <img src="${getWeatherIcon(weather.weather[0].icon)}" alt="weather icon" class="weather-forecast-icon">
+        <h2 class="forecast-day">${getDate(weather.dt * 1000)}</h2>
+        <div class="temp">
+          <h3 class="max-temp">
+            <span class="temp-in-c selected">${convertToCelsius(weather.main.temp_max)}&deg;</span>
+            <span class="temp-in-f">${convertToFahrenheit(weather.main.temp_max)}&deg;</span>
+          </h3>
+          <h3 class="min-temp">
+            <span class="temp-in-c selected">${convertToCelsius(weather.main.temp_min)}&deg;</span>
+            <span class="temp-in-f">${convertToFahrenheit(weather.main.temp_min)}&deg;</span> 
+          </h3>
+        </div>
+      </div>
+    `;
+  });
+  const markup = `
+    <div class="weather-forecast">
+      ${forecast.join('')}
+    </div>`;
+  elements.weatherContainer.insertAdjacentHTML('beforeend', markup);
 };
 
 export const showError = (errorMessage) => {

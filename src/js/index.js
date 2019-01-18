@@ -32,8 +32,10 @@ const getWeather = async (url) => {
         }),
       },
     };
+    console.log(data);
     weatherView.clearLoader();
     weatherView.updateCurrentWeatherView(data.currentWeather);
+    weatherView.updateWeatherForecastView(data.forecast);
   } catch (error) {
     weatherView.clearLoader();
     weatherView.showError(error.response.data.message);
@@ -73,18 +75,18 @@ const convertTempUnit = (event) => {
   const btnCelsius = document.querySelector('.btn-celsius');
   const btnFahrenheit = document.querySelector('.btn-fahrenheit');
 
-  const tempCelsius = document.querySelector('.temp-in-c');
-  const tempFahrenheit = document.querySelector('.temp-in-f');
+  const tempCelsius = document.querySelectorAll('.temp-in-c');
+  const tempFahrenheit = document.querySelectorAll('.temp-in-f');
 
   if (event.target === btnCelsius) {
-    tempCelsius.classList.add('selected');
-    tempFahrenheit.classList.remove('selected');
+    tempCelsius.forEach(element => element.classList.add('selected'));
+    tempFahrenheit.forEach(element => element.classList.remove('selected'));
 
     btnCelsius.classList.add('active-unit');
     btnFahrenheit.classList.remove('active-unit');
   } else if (event.target === btnFahrenheit) {
-    tempCelsius.classList.remove('selected');
-    tempFahrenheit.classList.add('selected');
+    tempCelsius.forEach(element => element.classList.remove('selected'));
+    tempFahrenheit.forEach(element => element.classList.add('selected'));
 
     btnFahrenheit.classList.add('active-unit');
     btnCelsius.classList.remove('active-unit');

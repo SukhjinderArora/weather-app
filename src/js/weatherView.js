@@ -134,12 +134,22 @@ export const updateCurrentWeatherView = (weatherData) => {
       <h3 class="date-time">${getDateTime(weatherData.date * 1000)}</h3>
       <h3 class="weather-description">${weatherData.weather.main}</h2>
       <img src="${getWeatherIcon(weatherData.weather.icon)}" alt="weather icon" class="weather-icon">
-      <h1 class="current-temp"><span class="temp-in-c selected">${convertToCelsius(weatherData.main.temp)}</span><span class="temp-in-f">${convertToFahrenheit(weatherData.main.temp)}</span><sup><button class="temp-unit btn-celsius active-unit">&deg;C</button>|<button class="temp-unit btn-fahrenheit">&deg;F</button></sup></h1>
+      <h1 class="current-temp">
+        <span class="temp-in-c selected">${convertToCelsius(weatherData.main.temp)}</span>
+        <span class="temp-in-f">${convertToFahrenheit(weatherData.main.temp)}</span>
+        <sup>
+          <button class="temp-unit btn-celsius active-unit">&deg;C</button>
+          <span>|</span>
+          <button class="temp-unit btn-fahrenheit">&deg;F</button>
+        </sup>
+      </h1>
       <div class="extra-weather-details">
         <p>Humidity: ${weatherData.main.humidity}%</p>
         <p>Wind: ${Math.trunc(weatherData.wind.speed * 3.6)} km/h</p>
       </div>
-    </div>`;
+    </div>
+  `;
+
   elements.weatherContainer.insertAdjacentHTML('afterbegin', markup);
 };
 
@@ -162,10 +172,12 @@ export const updateWeatherForecastView = (weatherForecast) => {
       </div>
     `;
   });
+
   const markup = `
     <div class="weather-forecast">
       ${forecast.join('')}
     </div>`;
+
   elements.weatherContainer.insertAdjacentHTML('beforeend', markup);
 };
 
@@ -173,5 +185,6 @@ export const showError = (errorMessage) => {
   const markup = `
     <div class="error-message"><p>${errorMessage}</p></div>
     `;
+
   elements.weatherContainer.insertAdjacentHTML('afterbegin', markup);
 };

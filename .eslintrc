@@ -18,6 +18,7 @@
         "args": "none"
       }
     ],
+    "eol-last": "warn",
     "react/jsx-filename-extension": 0,
     "prefer-destructuring": "warn",
     "arrow-body-style": "warn",

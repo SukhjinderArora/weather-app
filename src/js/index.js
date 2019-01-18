@@ -42,7 +42,7 @@ const getWeather = async (url) => {
 };
 
 // Gets weather by GeoLocation
-const getWeatherByGeoLocation = async (event) => {
+const getWeatherByGeoLocation = (event) => {
   if ('geolocation' in navigator) {
     geoLocation()
       .then((position) => {

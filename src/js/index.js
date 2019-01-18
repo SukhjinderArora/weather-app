@@ -1,6 +1,5 @@
 import '@babel/polyfill';
 import axios from 'axios';
-import moment from 'moment';
 
 import elements from './elements';
 import geoLocation from './geoLocation';
@@ -27,9 +26,9 @@ const getWeather = async (url) => {
       forecast: {
         city: weatherForecast.data.city,
         list: weatherForecast.data.list.filter((item) => {
-          const today = moment(new Date().getTime()).format('dddd');
-          const day = moment(item.dt * 1000).format('dddd');
-          return !day.includes(today) && item.dt_txt.includes('12:00');
+          const today = new Date().toLocaleDateString('en-us', { weekday: 'long' });
+          const day = new Date(item.dt * 1000).toLocaleDateString('en-us', { weekday: 'long' });
+          return day !== today && item.dt_txt.includes('12:00');
         }),
       },
     };

@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 import elements from './elements';
 
 // Weather Icons
@@ -119,18 +117,13 @@ const convertToCelsius = tempInKelvin => (tempInKelvin - 273.15).toFixed(0);
 const convertToFahrenheit = tempInKelvin => ((tempInKelvin - 273.15) * 9 / 5 + 32).toFixed(0);
 
 // Gets date and time from time stamp
+const getDateTime = (dt) => {
+  const date = new Date(dt).toLocaleDateString('en-us', {
+    weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true,
+  });
+  return date.replace('day', 'day,');
+};
 
-const getDateTime = dt => moment(dt).format('dddd, hh:mm a');
-
-// const getDateTime = (dt) => {
-//   const date = new Date(dt).toLocaleDateString('en-us', {
-//     weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true,
-//   });
-//   return date.replace('day', 'day,');
-// };
-
-// new Date().toLocaleDateString('en-us',
-// { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true });
 // Updates the current weather view
 export const updateCurrentWeatherView = (weatherData) => {
   const markup = `

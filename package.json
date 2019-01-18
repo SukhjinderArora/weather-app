@@ -47,7 +47,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
-    "dotenv-webpack": "^1.6.0",
-    "moment": "^2.23.0"
+    "dotenv-webpack": "^1.6.0"
   }
 }

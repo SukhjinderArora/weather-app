@@ -32,7 +32,6 @@ const getWeather = async (url) => {
         }),
       },
     };
-    console.log(data);
     weatherView.clearLoader();
     weatherView.updateCurrentWeatherView(data.currentWeather);
     weatherView.updateWeatherForecastView(data.forecast);

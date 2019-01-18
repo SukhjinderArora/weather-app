@@ -1,4 +1,5 @@
 import elements from './elements';
+import * as utils from './utils';
 
 // Weather Icons
 import clearDay from '../assets/weather-icons/day.svg';
@@ -41,10 +42,12 @@ export const renderLoader = () => {
   elements.weatherContainer.innerHTML = loader;
 };
 
+// Clears the loader from screen
 export const clearLoader = () => {
   elements.weatherContainer.innerHTML = '';
 };
-// Gets appropiate weather icon depending on weather
+
+// Gets appropiate weather icon depending on weather and iconID received from API response
 const getWeatherIcon = (iconID) => {
   let weatherIcon = '';
 
@@ -110,33 +113,17 @@ const getWeatherIcon = (iconID) => {
   return weatherIcon;
 };
 
-// Converts the temperature to Celsius
-const convertToCelsius = tempInKelvin => (tempInKelvin - 273.15).toFixed(0);
-
-// Converts the temperature to Fahrenheit
-const convertToFahrenheit = tempInKelvin => ((tempInKelvin - 273.15) * 9 / 5 + 32).toFixed(0);
-
-// Gets date and time from time stamp
-const getDateTime = (dt) => {
-  const date = new Date(dt).toLocaleDateString('en-us', {
-    weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true,
-  });
-  return date.replace('day', 'day,');
-};
-
-const getDate = dt => new Date(dt).toLocaleDateString('en-us', { weekday: 'long' });
-
 // Updates the current weather view
 export const updateCurrentWeatherView = (weatherData) => {
   const markup = `
     <div class="current-weather">
       <h1 class="city-name">${weatherData.cityName}</h1>
-      <h3 class="date-time">${getDateTime(weatherData.date * 1000)}</h3>
+      <h3 class="date-time">${utils.getDayAndTime(weatherData.date * 1000)}</h3>
       <h3 class="weather-description">${weatherData.weather.main}</h2>
       <img src="${getWeatherIcon(weatherData.weather.icon)}" alt="weather icon" class="weather-icon">
       <h1 class="current-temp">
-        <span class="temp-in-c selected">${convertToCelsius(weatherData.main.temp)}</span>
-        <span class="temp-in-f">${convertToFahrenheit(weatherData.main.temp)}</span>
+        <span class="temp-in-c selected">${utils.convertToCelsius(weatherData.main.temp)}</span>
+        <span class="temp-in-f">${utils.convertToFahrenheit(weatherData.main.temp)}</span>
         <sup>
           <button class="temp-unit btn-celsius active-unit">&deg;C</button>
           <span>|</span>
@@ -153,20 +140,21 @@ export const updateCurrentWeatherView = (weatherData) => {
   elements.weatherContainer.insertAdjacentHTML('afterbegin', markup);
 };
 
+// Updates the weather forecast view
 export const updateWeatherForecastView = (weatherForecast) => {
   const forecast = weatherForecast.list.map((weather) => {
     return `
       <div class="weather">
         <img src="${getWeatherIcon(weather.weather[0].icon)}" alt="weather icon" class="weather-forecast-icon">
-        <h2 class="forecast-day">${getDate(weather.dt * 1000)}</h2>
+        <h2 class="forecast-day">${utils.getDay(weather.dt * 1000)}</h2>
         <div class="temp">
           <h3 class="max-temp">
-            <span class="temp-in-c selected">${convertToCelsius(weather.main.temp_max)}&deg;</span>
-            <span class="temp-in-f">${convertToFahrenheit(weather.main.temp_max)}&deg;</span>
+            <span class="temp-in-c selected">${utils.convertToCelsius(weather.main.temp_max)}&deg;</span>
+            <span class="temp-in-f">${utils.convertToFahrenheit(weather.main.temp_max)}&deg;</span>
           </h3>
           <h3 class="min-temp">
-            <span class="temp-in-c selected">${convertToCelsius(weather.main.temp_min)}&deg;</span>
-            <span class="temp-in-f">${convertToFahrenheit(weather.main.temp_min)}&deg;</span> 
+            <span class="temp-in-c selected">${utils.convertToCelsius(weather.main.temp_min)}&deg;</span>
+            <span class="temp-in-f">${utils.convertToFahrenheit(weather.main.temp_min)}&deg;</span> 
           </h3>
         </div>
       </div>

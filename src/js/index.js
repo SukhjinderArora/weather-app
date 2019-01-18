@@ -1,30 +1,55 @@
 import '@babel/polyfill';
+import axios from 'axios';
+import moment from 'moment';
+
 import elements from './elements';
 import geoLocation from './geoLocation';
-import getWeather from './weather';
 import * as weatherView from './weatherView';
 
 // base url for weather API
 const baseURL = 'https://api.openweathermap.org/data/2.5';
 
+// Async function for getting current weather and weather forecast
+const getWeather = async (url) => {
+  weatherView.renderLoader();
+  try {
+    const currentWeather = await axios(url);
+    const weatherForecast = await axios(url.replace('/weather', '/forecast'));
+
+    const data = {
+      currentWeather: {
+        cityName: `${currentWeather.data.name}, ${currentWeather.data.sys.country}`,
+        main: currentWeather.data.main,
+        weather: currentWeather.data.weather[0],
+        date: currentWeather.data.dt,
+        wind: currentWeather.data.wind,
+      },
+      forecast: {
+        city: weatherForecast.data.city,
+        list: weatherForecast.data.list.filter((item) => {
+          const today = moment(new Date().getTime()).format('dddd');
+          const day = moment(item.dt * 1000).format('dddd');
+          return !day.includes(today) && item.dt_txt.includes('12:00');
+        }),
+      },
+    };
+    weatherView.clearLoader();
+    weatherView.updateCurrentWeatherView(data.currentWeather);
+  } catch (error) {
+    weatherView.clearLoader();
+    weatherView.showError(error.response.data.message);
+  }
+};
+
 // Gets weather by GeoLocation
-const getWeatherByGeoLocation = (event) => {
+const getWeatherByGeoLocation = async (event) => {
   if ('geolocation' in navigator) {
     geoLocation()
       .then((position) => {
         const lat = position.coords.latitude;
         const long = position.coords.longitude;
         const url = `${baseURL}/weather?lat=${lat}&lon=${long}&appid=${process.env.WEATHER_TOKEN}`;
-        weatherView.renderLoader();
-        getWeather(url)
-          .then((weatherData) => {
-            console.log(weatherData);
-            weatherView.updateCurrentWeatherView(weatherData[0]);
-          })
-          .catch((error) => {
-            console.log(error.response);
-            weatherView.showError(error.response.data.message);
-          });
+        getWeather(url);
       })
       .catch((error) => {
         weatherView.showError(error.message);
@@ -36,37 +61,37 @@ const getWeatherByGeoLocation = (event) => {
 
 // Gets weather by city name
 const weatherFormHandler = (event) => {
+  event.preventDefault();
   const city = weatherView.getInput();
   if (city.trim() === '') return;
   const url = `${baseURL}/weather?q=${city}&APPID=${process.env.WEATHER_TOKEN}`;
-  event.preventDefault();
-  weatherView.renderLoader();
-  getWeather(url)
-    .then((weatherData) => {
-      console.log(weatherData);
-      weatherView.updateCurrentWeatherView(weatherData[0]);
-      weatherView.clearInput();
-    })
-    .catch((error) => {
-      console.log(error.response);
-      weatherView.showError(error.response.data.message);
-    });
+  weatherView.clearInput();
+  getWeather(url);
 };
 
+// Convert temperature unit between celsius and fahrenheit
 const convertTempUnit = (event) => {
-  if (event.target.classList.contains('btn-celsius')) {
-    document.querySelector('.temp-in-c').classList.add('selected');
-    document.querySelector('.temp-in-f').classList.remove('selected');
-    document.querySelector('.btn-celsius').classList.add('active-unit');
-    document.querySelector('.btn-fahrenheit').classList.remove('active-unit');
-  } else if (event.target.classList.contains('btn-fahrenheit')) {
-    document.querySelector('.temp-in-c').classList.remove('selected');
-    document.querySelector('.temp-in-f').classList.add('selected');
+  const btnCelsius = document.querySelector('.btn-celsius');
+  const btnFahrenheit = document.querySelector('.btn-fahrenheit');
 
-    document.querySelector('.btn-fahrenheit').classList.add('active-unit');
-    document.querySelector('.btn-celsius').classList.remove('active-unit');
+  const tempCelsius = document.querySelector('.temp-in-c');
+  const tempFahrenheit = document.querySelector('.temp-in-f');
+
+  if (event.target === btnCelsius) {
+    tempCelsius.classList.add('selected');
+    tempFahrenheit.classList.remove('selected');
+
+    btnCelsius.classList.add('active-unit');
+    btnFahrenheit.classList.remove('active-unit');
+  } else if (event.target === btnFahrenheit) {
+    tempCelsius.classList.remove('selected');
+    tempFahrenheit.classList.add('selected');
+
+    btnFahrenheit.classList.add('active-unit');
+    btnCelsius.classList.remove('active-unit');
   }
 };
+
 
 // Event Listeners
 window.addEventListener('load', getWeatherByGeoLocation);

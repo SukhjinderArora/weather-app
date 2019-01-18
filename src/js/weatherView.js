@@ -37,7 +37,7 @@ export const renderLoader = () => {
   ];
   const loader = `
       <div class="loader">
-        <img src="${loaderIcons[Math.round(Math.random() * (loaderIcons.length - 1))]}" alt="weather icons" class="loader-icon">
+        <img src="${loaderIcons[Math.round(Math.random() * (loaderIcons.length - 1))]}" alt="weather icons" class="loader__icon">
       </div>
   `;
   elements.weatherContainer.innerHTML = loader;
@@ -119,8 +119,18 @@ const convertToCelsius = tempInKelvin => (tempInKelvin - 273.15).toFixed(0);
 const convertToFahrenheit = tempInKelvin => ((tempInKelvin - 273.15) * 9 / 5 + 32).toFixed(0);
 
 // Gets date and time from time stamp
-const getDateTime = dt => moment(dt).format('dddd, h:mm a');
 
+const getDateTime = dt => moment(dt).format('dddd, hh:mm a');
+
+// const getDateTime = (dt) => {
+//   const date = new Date(dt).toLocaleDateString('en-us', {
+//     weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true,
+//   });
+//   return date.replace('day', 'day,');
+// };
+
+// new Date().toLocaleDateString('en-us',
+// { weekday: 'long', hour: 'numeric', minute: 'numeric', hour12: true });
 // Updates the current weather view
 export const updateCurrentWeatherView = (weatherData) => {
   const markup = `
@@ -135,7 +145,6 @@ export const updateCurrentWeatherView = (weatherData) => {
         <p>Wind: ${Math.trunc(weatherData.wind.speed * 3.6)} km/h</p>
       </div>
     </div>`;
-  clearLoader();
   elements.weatherContainer.insertAdjacentHTML('afterbegin', markup);
 };
 
@@ -143,6 +152,5 @@ export const showError = (errorMessage) => {
   const markup = `
     <div class="error-message"><p>${errorMessage}</p></div>
     `;
-  clearLoader();
   elements.weatherContainer.insertAdjacentHTML('afterbegin', markup);
 };

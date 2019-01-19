@@ -169,6 +169,7 @@ export const updateWeatherForecastView = (weatherForecast) => {
   elements.weatherContainer.insertAdjacentHTML('beforeend', markup);
 };
 
+// Shows error to the screen if something went wrong
 export const showError = (errorMessage) => {
   const markup = `
     <div class="error-message"><p>${errorMessage}</p></div>

@@ -152,8 +152,8 @@ export const updateWeatherForecastView = (weatherForecast) => {
           <h3>Wind: ${Math.trunc(weather.wind.speed * 3.6)} km/h</h3>
         </div>
         <h3 class="temp">
-          <span class="temp-in-c selected">${utils.convertToCelsius(weather.main.temp)}&deg;</span>
-          <span class="temp-in-f">${utils.convertToFahrenheit(weather.main.temp)}&deg;</span>
+          <span class="temp-in-c selected">${utils.convertToCelsius(weather.main.temp)}&deg;C</span>
+          <span class="temp-in-f">${utils.convertToFahrenheit(weather.main.temp)}&deg;F</span>
         </h3>
       </div>
     `;

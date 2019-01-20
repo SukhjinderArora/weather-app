@@ -15,3 +15,6 @@ export const getDayAndTime = (dt) => {
 
 // Get day from time stamp
 export const getDay = dt => new Date(dt).toLocaleDateString('en-us', { weekday: 'long' });
+
+// Get today's day
+export const getToday = () => new Date().toLocaleDateString('en-us', { weekday: 'long' });

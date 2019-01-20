@@ -4,6 +4,7 @@ import axios from 'axios';
 import elements from './elements';
 import geoLocation from './geoLocation';
 import * as weatherView from './weatherView';
+import * as utils from './utils';
 
 // base url for weather API
 const baseURL = 'https://api.openweathermap.org/data/2.5';
@@ -26,13 +27,12 @@ const getWeather = async (url) => {
       forecast: {
         city: weatherForecast.data.city,
         list: weatherForecast.data.list.filter((item) => {
-          const today = new Date().toLocaleDateString('en-us', { weekday: 'long' });
-          const day = new Date(item.dt * 1000).toLocaleDateString('en-us', { weekday: 'long' });
+          const today = utils.getToday();
+          const day = utils.getDay(item.dt * 1000);
           return day !== today && item.dt_txt.includes('12:00');
         }),
       },
     };
-    console.log(data.forecast);
     weatherView.clearLoader();
     weatherView.updateCurrentWeatherView(data.currentWeather);
     weatherView.updateWeatherForecastView(data.forecast);

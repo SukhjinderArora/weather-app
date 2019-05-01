@@ -1,0 +1,9 @@
+@mixin firefoxAndEdge() {
+  @supports (-ms-ime-align: auto) {
+    @content;
+  }
+
+  @supports (-moz-appearance:meterbar) and (display:flex) {
+    @content;
+  }
+}

@@ -9,6 +9,10 @@
     @include respond(tablet) {
       font-size: 4.3rem;
     }
+
+    @include firefoxAndEdge() {
+      font-weight: 600;
+    }
   }
 
   &-secondary {
@@ -16,6 +20,10 @@
     font-weight: 400;
     @include respond(tablet) {
       font-size: 1.6rem;
+    }
+    
+    @include firefoxAndEdge() {
+      font-weight: 300;
     }
   }
 }

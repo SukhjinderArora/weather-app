@@ -51,6 +51,10 @@
     font-weight: 400;
     font-size: 1.6rem;
     margin-top: .5rem; 
+
+    @include firefoxAndEdge() {
+      font-weight: 300;
+    }
   }
 }
 
@@ -58,9 +62,17 @@
   font-size: 2rem;
   font-weight: 400;
   color: $color-primary;
+
+  @include firefoxAndEdge() {
+    font-weight: 300;
+  }
 }
 
 .temp {
   font-weight: 400;
   color: rgba($color-black, .9);
+
+  @include firefoxAndEdge() {
+    font-weight: 300;
+  }
 }

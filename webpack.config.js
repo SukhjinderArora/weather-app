@@ -11,6 +11,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    assetModuleFilename: 'images/[name].[ext]',
   },
   devServer: {
     static: {
@@ -52,17 +53,7 @@ module.exports = {
       },
       {
         test: /\.(png|svg|jpe?g|gif|ico)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              emitFile: true,
-              outputPath: 'images',
-              publicPath: 'images',
-            },
-          },
-        ],
+        type: 'asset/resource',
       },
       {
         test: /\.js$/,

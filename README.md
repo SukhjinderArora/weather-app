@@ -70,3 +70,7 @@ Use the command `npm run deploy` to deploy your application to Github Pages.
 ## This app uses :
 
 - [Openweathermap](https://openweathermap.org/api) API to get the weather data.
+
+# License
+
+MIT License

@@ -17,8 +17,9 @@ Using this application you can:
 This project is built using:
 
 - HTML
-- CSS
+- SCSS
 - Vanilla JavaScript
+- Webpack
 - OpenWeather's REST API
 
 # Development Workflow

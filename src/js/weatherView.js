@@ -36,7 +36,9 @@ export const renderLoader = () => {
   ];
   const loader = `
       <div class="loader">
-        <img src="${loaderIcons[Math.round(Math.random() * (loaderIcons.length - 1))]}" alt="weather icons" class="loader__icon">
+        <img src="${
+          loaderIcons[Math.round(Math.random() * (loaderIcons.length - 1))]
+        }" alt="weather icons" class="loader__icon">
       </div>
   `;
   elements.weatherContainer.innerHTML = loader;
@@ -120,10 +122,16 @@ export const updateCurrentWeatherView = (weatherData) => {
       <h1 class="city-name">${weatherData.cityName}</h1>
       <h3 class="date-time">${utils.getDayAndTime(weatherData.date * 1000)}</h3>
       <h3 class="weather-description">${weatherData.weather.main}</h2>
-      <img src="${getWeatherIcon(weatherData.weather.icon)}" alt="weather icon" class="weather-icon">
+      <img src="${getWeatherIcon(
+        weatherData.weather.icon
+      )}" alt="weather icon" class="weather-icon">
       <h1 class="current-temp">
-        <span class="temp-in-c selected">${utils.convertToCelsius(weatherData.main.temp)}</span>
-        <span class="temp-in-f">${utils.convertToFahrenheit(weatherData.main.temp)}</span>
+        <span class="temp-in-c selected">${utils.convertToCelsius(
+          weatherData.main.temp
+        )}</span>
+        <span class="temp-in-f">${utils.convertToFahrenheit(
+          weatherData.main.temp
+        )}</span>
         <sup>
           <button class="temp-unit btn-celsius active-unit">&deg;C</button>
           <span>|</span>
@@ -142,22 +150,28 @@ export const updateCurrentWeatherView = (weatherData) => {
 
 // Updates the weather forecast view
 export const updateWeatherForecastView = (weatherForecast) => {
-  const forecast = weatherForecast.list.map((weather) => {
-    return `
+  const forecast = weatherForecast.list.map(
+    (weather) => `
       <div class="weather">
-        <img src="${getWeatherIcon(weather.weather[0].icon)}" alt="weather icon" class="weather-forecast-icon">
+        <img src="${getWeatherIcon(
+          weather.weather[0].icon
+        )}" alt="weather icon" class="weather-forecast-icon">
         <div class="weather-detail">
           <h2 class="forecast-day">${utils.getDay(weather.dt * 1000)}</h2>
           <h3>Humidity: ${weather.main.humidity}%</h3>
           <h3>Wind: ${Math.trunc(weather.wind.speed * 3.6)} km/h</h3>
         </div>
         <h3 class="temp">
-          <span class="temp-in-c selected">${utils.convertToCelsius(weather.main.temp)}&deg;C</span>
-          <span class="temp-in-f">${utils.convertToFahrenheit(weather.main.temp)}&deg;F</span>
+          <span class="temp-in-c selected">${utils.convertToCelsius(
+            weather.main.temp
+          )}&deg;C</span>
+          <span class="temp-in-f">${utils.convertToFahrenheit(
+            weather.main.temp
+          )}&deg;F</span>
         </h3>
       </div>
-    `;
-  });
+    `
+  );
 
   const markup = `
     <div class="weather-forecast">

@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+import 'core-js/stable';
 import axios from 'axios';
 
 import elements from './elements';
@@ -43,7 +43,7 @@ const getWeather = async (url) => {
 };
 
 // Gets weather by GeoLocation
-const getWeatherByGeoLocation = (event) => {
+const getWeatherByGeoLocation = () => {
   if ('geolocation' in navigator) {
     geoLocation()
       .then((position) => {
@@ -79,20 +79,19 @@ const convertTempUnit = (event) => {
   const tempFahrenheit = document.querySelectorAll('.temp-in-f');
 
   if (event.target === btnCelsius) {
-    tempCelsius.forEach(element => element.classList.add('selected'));
-    tempFahrenheit.forEach(element => element.classList.remove('selected'));
+    tempCelsius.forEach((element) => element.classList.add('selected'));
+    tempFahrenheit.forEach((element) => element.classList.remove('selected'));
 
     btnCelsius.classList.add('active-unit');
     btnFahrenheit.classList.remove('active-unit');
   } else if (event.target === btnFahrenheit) {
-    tempCelsius.forEach(element => element.classList.remove('selected'));
-    tempFahrenheit.forEach(element => element.classList.add('selected'));
+    tempCelsius.forEach((element) => element.classList.remove('selected'));
+    tempFahrenheit.forEach((element) => element.classList.add('selected'));
 
     btnFahrenheit.classList.add('active-unit');
     btnCelsius.classList.remove('active-unit');
   }
 };
-
 
 // Event Listeners
 window.addEventListener('load', getWeatherByGeoLocation);

@@ -1,5 +1,5 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
@@ -13,7 +13,9 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
   },
   module: {
     rules: [
@@ -31,7 +33,19 @@ module.exports = {
         use: {
           loader: 'html-loader',
           options: {
-            attrs: ['img:src', 'object:data', 'link:href', 'a:href'],
+            sources: {
+              list: [
+                '...',
+                {
+                  tag: 'img',
+                  attribute: 'src',
+                  type: 'src',
+                },
+                { tag: 'object', attribute: 'data', type: 'src' },
+                { tag: 'link', attribute: 'href', type: 'src' },
+                { tag: 'a', attribute: 'href', type: 'src' },
+              ],
+            },
             minimize: !devMode,
           },
         },
@@ -57,9 +71,9 @@ module.exports = {
       },
     ],
   },
-  devtool: devMode ? 'eval-source-map' : '',
+  devtool: devMode ? 'eval-source-map' : false,
   plugins: [
-    new CleanWebpackPlugin(['dist']),
+    new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'style.css',
     }),
